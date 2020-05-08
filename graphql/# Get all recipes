@@ -1,0 +1,165 @@
+# Get single recipe by slug
+# query {
+#   recipe(slug: "thai-chicken-coconut-curry") {
+#     id
+#     title
+#     slug
+#     difficulty
+#     prep_time
+#     body
+#     meals {
+#       id
+#       title
+#     }
+#     author {
+#       id
+#       name
+#     }
+#     categories {
+#       id
+#       title
+#     }
+#     steps {
+#       id
+#       step
+#     }
+#     ingredients {
+#       id
+#       amount
+#       note
+#       ingredient {
+#         id
+#         title
+#         slug
+#       }
+#     }
+#     notes {
+#       id
+#       body
+#     }
+#   }
+# }
+
+# Get all recipes
+
+
+# query {
+#   recipes {
+#     data {
+#       id
+#       title,
+#       slug,
+#       image,
+#       difficulty,
+#       prep_time,
+#       author {
+# 	      id,
+#         name
+#     },
+#       meals {
+#         id,
+#         title,
+#         slug
+#       }
+#     }
+#   }
+# }
+
+# Get categories featured
+
+# query {
+#   categories(category: true) {
+#     data {
+#       id
+#       title
+#       slug
+#       image
+#     }
+#   }
+# }
+
+# Get ingredients
+
+ query {
+   ingredients {
+     id
+     title
+     slug
+   }
+ }
+
+# Get recips by ingredients
+
+# query {
+#   ingredient(slug: "ingredient-four") {
+#     title, bg
+#     excerpt,
+#     body,
+#     recipes {
+#       id
+#       title
+#       slug
+#       image
+#       difficulty
+#       prep_time
+#       author {
+#         id
+#         name
+#       }
+#       meals {
+#         id
+#         title
+#         slug
+#       }
+#     }
+#   }
+# }
+
+# Preparations All by recipe
+
+query {
+  GetAllPreparationsByRecipe (id: 2) {
+    id,
+    step
+  }
+}
+
+
+# Preparations All by recipe
+
+# query {
+#   GetAllIngredientsByRecipe (id: 1) {
+#     id,
+#     amount
+#   }
+# }
+
+
+# Search
+
+# query {
+#   SearchRecipes (term: "curry") {
+#     id,
+#     title,
+#     slugf
+#   }
+# }
+
+# Preparation Mutations
+
+# mutation {
+#   createPreparations(step: "Step two", recipe_id: 2, author_id: 1, order: 1) {
+#     id,
+#     step
+#   }
+# }
+
+# Recipeingredient Mutation
+
+mutation {
+  deleteRecipeingredients (id:4) {
+    id,
+    amount,
+    note
+  }
+}

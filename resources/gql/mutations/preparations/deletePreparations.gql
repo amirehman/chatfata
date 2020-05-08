@@ -1,0 +1,6 @@
+mutation($id: ID!) {
+    deletePreparations(id: $id) {
+        id
+  }
+}
+

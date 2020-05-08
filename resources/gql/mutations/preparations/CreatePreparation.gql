@@ -1,0 +1,11 @@
+mutation($step: String!, $recipe_id: Int!, $author_id: Int!, $order: Int!) {
+    createPreparations(
+        step: $step
+        recipe_id: $recipe_id
+        author_id: $author_id
+        order: $order
+    ) {
+        id
+        step
+    }
+}

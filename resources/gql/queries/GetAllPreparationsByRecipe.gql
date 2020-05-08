@@ -1,0 +1,6 @@
+query($id: Int!) {
+    GetAllPreparationsByRecipe(id: $id) {
+        id
+        step
+    }
+}

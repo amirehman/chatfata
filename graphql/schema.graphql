@@ -1,0 +1,175 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+    userbyname(username: ID @eq): User @find
+
+    recipes: [Recipe] @paginate(defaultCount: 12)
+    recipe(slug: ID @eq): Recipe @find
+
+    categories(category: Boolean! @eq): [Ingredient] @paginate(defaultCount: 12)
+    GetFeaturedCategoriesRandomly: [Ingredient]
+
+    GetAllPreparationsByRecipe(id: Int!): [Preparation]
+    GetAllIngredientsByRecipe(id: Int!): [Recipeingredient]
+
+    GetAllIngredientsSorted: [Ingredient]
+    ingredients: [Ingredient] @all
+    ingredient(slug: ID @eq): Ingredient @find
+
+    SearchRecipes(term: String): [Recipe]
+
+
+}
+
+type Mutation {
+
+    # createUser(
+    #    name: String @rules(apply: ["required"])
+    #    email: String @rules(apply: ["required", "email", "unique:users,email"])
+    # ): User @create(model: "App\\User")
+
+    # updateUser(
+    #     id: ID @rules(apply: ["required"])
+    #     name: String
+    #     email: String @rules(apply: ["email"])
+    # ): User @update(model: "App\\User")
+
+    # deleteUser(
+    #     id: ID @rules(apply: ["required"])
+    # ): User @delete(model: "App\\User")
+
+
+    createPreparations(
+        step: String! @rules(apply: ["required"])
+        recipe_id: Int! @rules(apply: ["required"])
+        author_id: Int! @rules(apply: ["required"])
+        order: Int
+    ): Preparation @create
+
+    updatePreparations(
+        id: ID @rules(apply: ["required"])
+        step: String! @rules(apply: ["required"])
+        recipe_id: Int! @rules(apply: ["required"])
+        author_id: Int! @rules(apply: ["required"])
+    ): Preparation @update
+
+    deletePreparations(
+        id: ID! @rules(apply: ["required"])
+    ): Preparation @delete
+
+
+######    Recipeingredient   ######
+
+    createRecipeingredients(
+        amount: String! @rules(apply: ["required"])
+        note: String
+        ingredient_id: Int! @rules(apply: ["required"])
+        recipe_id: Int! @rules(apply: ["required"])
+        author_id: Int! @rules(apply: ["required"])
+        order: Int
+    ): Recipeingredient @create
+
+    updateRecipeingredients(
+        id: ID @rules(apply: ["required"])
+        amount: String! @rules(apply: ["required"])
+        note: String
+        ingredient_id: Int! @rules(apply: ["required"])
+        recipe_id: Int! @rules(apply: ["required"])
+        author_id: Int! @rules(apply: ["required"])
+        order: Int
+    ): Recipeingredient @update
+
+    deleteRecipeingredients(
+        id: ID! @rules(apply: ["required"])
+    ): Recipeingredient @delete
+
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    username: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    info: UserInfo @hasOne
+    recipes: [Recipe] @belongsToMany
+}
+
+type UserInfo {
+    id: ID!
+    about: String!
+    youtube: String!
+    username: String!
+    user: User @belongsTo
+}
+
+type Ingredient {
+    id: ID!
+    title: String!
+    slug: String!
+    excerpt: String
+    body: String
+    image: String!
+    category: Boolean
+    recipes: [Recipe] @belongsToMany
+}
+
+type Meal {
+    id: ID!
+    title: String!
+    slug: String!
+    image: String!
+    recipes: [Recipe] @belongsToMany
+}
+
+type Recipe {
+    id: ID!
+    title: String!
+    slug: String!
+    excerpt: String
+    body: String
+    difficulty: String!
+    prep_time: String
+    image: String
+    video: String
+    ingredient_note: String
+    seo_title: String
+    meta_description: String
+    meta_keywords: String
+    status: String
+    featured: Boolean
+    order: Int
+    created_at: String
+    image: String!
+    meals: [Meal] @belongsToMany
+    categories: [Ingredient] @belongsToMany
+    author: User @belongsTo
+    steps: [Preparation] @hasMany,
+    ingredients: [Recipeingredient] @hasMany
+    notes: [Recipeingredientnote] @hasMany
+}
+
+type Recipeingredient {
+    id: ID!
+    amount: String!
+    note: String
+    ingredient: Ingredient @belongsTo
+}
+
+type Recipeingredientnote {
+    id: ID!
+    title: String
+    body: String!
+}
+
+type Preparation {
+    id: ID!
+    step: String!
+}

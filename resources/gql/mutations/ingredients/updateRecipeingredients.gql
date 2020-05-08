@@ -1,0 +1,21 @@
+mutation(
+    $id: ID!
+    $amount: String!
+    $ingredient_id: Int!
+    $note: String
+    $recipe_id: Int!
+    $author_id: Int!
+    $order: Int!
+) {
+    updateRecipeingredients(
+        id: $id
+        amount: $amount
+        ingredient_id: $ingredient_id
+        note: $note
+        recipe_id: $recipe_id
+        author_id: $author_id
+        order: $order
+    ) {
+        id
+    }
+}

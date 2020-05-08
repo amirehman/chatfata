@@ -1,0 +1,11 @@
+query($id: Int!) {
+    GetAllIngredientsByRecipe(id: $id) {
+        id
+        amount
+        note
+        ingredient {
+            id
+            title
+        }
+    }
+}

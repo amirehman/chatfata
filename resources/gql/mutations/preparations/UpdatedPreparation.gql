@@ -1,0 +1,16 @@
+mutation(
+    $id: ID!
+    $step: String!
+    $recipe_id: Int!
+    $author_id: Int!
+) {
+    updatePreparations(
+        id: $id
+        step: $step
+        recipe_id: $recipe_id
+        author_id: $author_id
+    ) {
+        id
+        step
+    }
+}

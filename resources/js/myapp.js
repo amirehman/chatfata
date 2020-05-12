@@ -77,7 +77,7 @@ Vue.component('edit-ingredient', require('./components/ingredients/EditIngredien
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '#myvueapp',
     store: store,
     apolloProvider
 });

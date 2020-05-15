@@ -1,11 +1,11 @@
 <?php
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class GetAllIngredientsSorted
+class CreateRecipeingredientsResolver
 {
     /**
      * Return a value for the field.
@@ -18,21 +18,6 @@ class GetAllIngredientsSorted
      */
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        {
-        // return \App\Ingredient::orderby('title', 'asc')->get();
-        // return \App\Ingredient::whereHas('ingredient', function($q) {
-        //                 $q->where('status','=','PUBLISHED');
-        //            })->orderby('title', 'asc')->get();
-
-        return \App\Recipeingredient::with(['ingredient' => function ($query) {
-            $query->whereHas('recipes', function($w) {
-                $w->where('status','=','PUBLISHED');
-            });
-        }])->get();
-
-        // $awardsDirty = new Collection($arr);
-        // return $awardsDirty->unique();
-
-    }
+        return true
     }
 }

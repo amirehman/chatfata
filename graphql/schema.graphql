@@ -1,5 +1,6 @@
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
@@ -18,17 +19,16 @@ type Query {
     GetAllPreparationsByRecipe(id: Int!): [Preparation]
     GetAllIngredientsByRecipe(id: Int!): [Recipeingredient]
 
-    GetAllIngredientsSorted: [Ingredient]
+    GetAllIngredientsSorted: [Recipeingredient]
     ingredients: [Ingredient] @all
     ingredient(slug: ID @eq): Ingredient @find
 
     SearchRecipes(term: String): [Recipe]
 
-
+    me: User @middleware(check:["auth:api"]) @auth
 }
 
 type Mutation {
-
     # createUser(
     #    name: String @rules(apply: ["required"])
     #    email: String @rules(apply: ["required", "email", "unique:users,email"])
@@ -44,7 +44,6 @@ type Mutation {
     #     id: ID @rules(apply: ["required"])
     # ): User @delete(model: "App\\User")
 
-
     createPreparations(
         step: String! @rules(apply: ["required"])
         recipe_id: Int! @rules(apply: ["required"])
@@ -59,12 +58,18 @@ type Mutation {
         author_id: Int! @rules(apply: ["required"])
     ): Preparation @update
 
-    deletePreparations(
-        id: ID! @rules(apply: ["required"])
-    ): Preparation @delete
+    deletePreparations(id: ID! @rules(apply: ["required"])): Preparation @delete
 
+    ######    Recipeingredient   ######
 
-######    Recipeingredient   ######
+    # createRecipeingredientsResolver: (
+    #     amount: String! @rules(apply: ["required"])
+    #     note: String
+    #     ingredient_id: Int! @rules(apply: ["required"])
+    #     recipe_id: Int! @rules(apply: ["required"])
+    #     author_id: Int! @rules(apply: ["required"])
+    #     order: Int
+    # ): Recipeingredient @create
 
     createRecipeingredients(
         amount: String! @rules(apply: ["required"])
@@ -88,7 +93,6 @@ type Mutation {
     deleteRecipeingredients(
         id: ID! @rules(apply: ["required"])
     ): Recipeingredient @delete
-
 }
 
 type User {
@@ -96,19 +100,43 @@ type User {
     name: String!
     email: String!
     username: String!
+    avatar: String
     created_at: DateTime!
     updated_at: DateTime!
     info: UserInfo @hasOne
     recipes: [Recipe] @belongsToMany
+    roles: [Role] @hasMany
+    social: [UserSocialmedia] @belongsToMany
 }
 
 type UserInfo {
     id: ID!
     about: String!
     youtube: String!
-    username: String!
     user: User @belongsTo
 }
+
+type Role {
+    id: ID!
+    name: String!
+    user: [User] @belongsToMany
+}
+
+type UserSocialmedia {
+    id: ID!
+    link: String!
+    user: [User] @hasOne
+    media: Socialmedia @belongsTo
+}
+
+type Socialmedia {
+    id: ID!
+    name: String!
+    icon: String!
+    usersocialmedia: UserSocialmedia @belongsTo
+}
+
+
 
 type Ingredient {
     id: ID!
@@ -151,7 +179,7 @@ type Recipe {
     meals: [Meal] @belongsToMany
     categories: [Ingredient] @belongsToMany
     author: User @belongsTo
-    steps: [Preparation] @hasMany,
+    steps: [Preparation] @hasMany
     ingredients: [Recipeingredient] @hasMany
     notes: [Recipeingredientnote] @hasMany
 }

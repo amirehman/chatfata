@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -86,6 +87,9 @@
 
                 <div class="links">
                     <a href="http://127.0.0.1:8000/admin">Admin</a>
+                </div>
+                <div class="links bg-gray-300 font-semibold text-xl p-10">
+                    {{$data->media}}
                 </div>
             </div>
         </div>

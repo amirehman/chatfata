@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48a86dd8e238a61440f6af0dbcc08b14",
+    "content-hash": "cd0d52ec6363a5370ed1f78f72f9ece3",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -1911,16 +1911,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.11.0",
+            "version": "v7.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f4563bd2e0875c59a1f7967abdbe5cef7f240117"
+                "reference": "c2fff1e9879494a6f853593b3c517dc9922bbb51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f4563bd2e0875c59a1f7967abdbe5cef7f240117",
-                "reference": "f4563bd2e0875c59a1f7967abdbe5cef7f240117",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c2fff1e9879494a6f853593b3c517dc9922bbb51",
+                "reference": "c2fff1e9879494a6f853593b3c517dc9922bbb51",
                 "shasum": ""
             },
             "require": {
@@ -1946,6 +1946,7 @@
                 "symfony/http-foundation": "^5.0",
                 "symfony/http-kernel": "^5.0",
                 "symfony/mime": "^5.0",
+                "symfony/polyfill-php73": "^1.17",
                 "symfony/process": "^5.0",
                 "symfony/routing": "^5.0",
                 "symfony/var-dumper": "^5.0",
@@ -2059,20 +2060,73 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-05-12T14:42:24+00:00"
+            "time": "2020-05-19T17:09:00+00:00"
         },
         {
-            "name": "laravel/passport",
-            "version": "v9.2.0",
+            "name": "laravel/helpers",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel/passport.git",
-                "reference": "9f4b88114e7517db58428cef0ba461f86a2e5f92"
+                "url": "https://github.com/laravel/helpers.git",
+                "reference": "1f978fc5dad9f7f906b18242c654252615201de4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/9f4b88114e7517db58428cef0ba461f86a2e5f92",
-                "reference": "9f4b88114e7517db58428cef0ba461f86a2e5f92",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/1f978fc5dad9f7f906b18242c654252615201de4",
+                "reference": "1f978fc5dad9f7f906b18242c654252615201de4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0|^7.0",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Dries Vints",
+                    "email": "dries.vints@gmail.com"
+                }
+            ],
+            "description": "Provides backwards compatibility for helpers in the latest Laravel release.",
+            "keywords": [
+                "helpers",
+                "laravel"
+            ],
+            "time": "2020-03-03T13:52:16+00:00"
+        },
+        {
+            "name": "laravel/passport",
+            "version": "v9.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/passport.git",
+                "reference": "0931d75235283d651b767d291a79cafba5d6ce68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/0931d75235283d651b767d291a79cafba5d6ce68",
+                "reference": "0931d75235283d651b767d291a79cafba5d6ce68",
                 "shasum": ""
             },
             "require": {
@@ -2132,7 +2186,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2020-05-12T20:45:28+00:00"
+            "time": "2020-05-14T08:24:43+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -2498,16 +2552,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.68",
+            "version": "1.0.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "3e4198372276ec99ac3409a21d7c9d1ced9026e4"
+                "reference": "7106f78428a344bc4f643c233a94e48795f10967"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3e4198372276ec99ac3409a21d7c9d1ced9026e4",
-                "reference": "3e4198372276ec99ac3409a21d7c9d1ced9026e4",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/7106f78428a344bc4f643c233a94e48795f10967",
+                "reference": "7106f78428a344bc4f643c233a94e48795f10967",
                 "shasum": ""
             },
             "require": {
@@ -2578,7 +2632,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2020-05-12T20:33:44+00:00"
+            "time": "2020-05-18T15:13:39+00:00"
         },
         {
             "name": "league/oauth1-client",
@@ -2803,16 +2857,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.33.0",
+            "version": "2.34.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "4d93cb95a80d9ffbff4018fe58ae3b7dd7f4b99b"
+                "reference": "3e87404329b8072295ea11d548b47a1eefe5a162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4d93cb95a80d9ffbff4018fe58ae3b7dd7f4b99b",
-                "reference": "4d93cb95a80d9ffbff4018fe58ae3b7dd7f4b99b",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/3e87404329b8072295ea11d548b47a1eefe5a162",
+                "reference": "3e87404329b8072295ea11d548b47a1eefe5a162",
                 "shasum": ""
             },
             "require": {
@@ -2836,7 +2890,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "2.x-dev",
+                    "dev-3.x": "3.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -2871,7 +2926,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-04-20T15:05:43+00:00"
+            "time": "2020-05-19T22:14:16+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2927,16 +2982,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v4.12.4",
+            "version": "v4.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "a6b689a466009645ce24520363e9f8b951cffae1"
+                "reference": "c3fe5567d30ec7192009a93efab6182f91c68b29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/a6b689a466009645ce24520363e9f8b951cffae1",
-                "reference": "a6b689a466009645ce24520363e9f8b951cffae1",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/c3fe5567d30ec7192009a93efab6182f91c68b29",
+                "reference": "c3fe5567d30ec7192009a93efab6182f91c68b29",
                 "shasum": ""
             },
             "require": {
@@ -2963,7 +3018,7 @@
                 "laravel/scout": "^4.0 || ^5.0 || ^6.0 || ^7.0",
                 "mll-lab/graphql-php-scalars": "^2.1",
                 "mockery/mockery": "^1.0",
-                "nunomaduro/larastan": "^0.5.2",
+                "nunomaduro/larastan": "^0.5.8",
                 "orchestra/database": "3.5.* || 3.6.* || 3.7.* || 3.8.* || 3.9.* || ^4.0 || ^5.0",
                 "orchestra/testbench": "3.5.* || 3.6.* || 3.7.* || 3.8.* || 3.9.* || ^4.0 || ^5.0",
                 "phpbench/phpbench": "@dev",
@@ -3019,7 +3074,7 @@
                 "laravel",
                 "laravel-graphql"
             ],
-            "time": "2020-04-30T20:27:05+00:00"
+            "time": "2020-05-16T17:39:21+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -4024,6 +4079,115 @@
                 "phar"
             ],
             "time": "2020-02-14T15:25:33+00:00"
+        },
+        {
+            "name": "spatie/image-optimizer",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/image-optimizer.git",
+                "reference": "9c1d470e34b28b715d25edb539dd6c899461527c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/9c1d470e34b28b715d25edb539dd6c899461527c",
+                "reference": "9c1d470e34b28b715d25edb539dd6c899461527c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "php": "^7.2",
+                "psr/log": "^1.0",
+                "symfony/process": "^4.2|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "symfony/var-dumper": "^4.2|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ImageOptimizer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easily optimize images using PHP",
+            "homepage": "https://github.com/spatie/image-optimizer",
+            "keywords": [
+                "image-optimizer",
+                "spatie"
+            ],
+            "time": "2019-11-25T12:29:24+00:00"
+        },
+        {
+            "name": "spatie/laravel-image-optimizer",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-image-optimizer.git",
+                "reference": "9eebdba764894fb04342a6799275b97237b89970"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-image-optimizer/zipball/9eebdba764894fb04342a6799275b97237b89970",
+                "reference": "9eebdba764894fb04342a6799275b97237b89970",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6.0|^7.0",
+                "php": "^7.2",
+                "spatie/image-optimizer": "^1.2.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LaravelImageOptimizer\\ImageOptimizerServiceProvider"
+                    ],
+                    "aliases": {
+                        "ImageOptimizer": "Spatie\\LaravelImageOptimizer\\Facades\\ImageOptimizer"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelImageOptimizer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Optimize images in your Laravel app",
+            "homepage": "https://github.com/spatie/laravel-image-optimizer",
+            "keywords": [
+                "laravel-image-optimizer",
+                "spatie"
+            ],
+            "time": "2020-03-10T08:19:07+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5913,16 +6077,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.0.2",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "67f1677954ad33ca6b77f2c41cf43a58624f27fc"
+                "reference": "749fba7bf560fe2600ea55bf8734a7c9b8c30cfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/67f1677954ad33ca6b77f2c41cf43a58624f27fc",
-                "reference": "67f1677954ad33ca6b77f2c41cf43a58624f27fc",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/749fba7bf560fe2600ea55bf8734a7c9b8c30cfd",
+                "reference": "749fba7bf560fe2600ea55bf8734a7c9b8c30cfd",
                 "shasum": ""
             },
             "require": {
@@ -5931,7 +6095,7 @@
                 "facade/flare-client-php": "^1.0",
                 "facade/ignition-contracts": "^1.0",
                 "filp/whoops": "^2.4",
-                "illuminate/support": "^7.0",
+                "illuminate/support": "^7.0|^8.0",
                 "monolog/monolog": "^2.0",
                 "php": "^7.2.5",
                 "scrivo/highlight.php": "^9.15",
@@ -5980,7 +6144,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2020-03-18T19:20:44+00:00"
+            "time": "2020-05-18T15:20:13+00:00"
         },
         {
             "name": "facade/ignition-contracts",

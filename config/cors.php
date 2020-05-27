@@ -19,11 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://manage.chatfata.com', 'https://chatfata.com'],
+    'allowed_origins' => ['https://manage.chatfata.com', 'https://chatfata.com', 'http://localhost/', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', '*'],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['x-csrf-token', 'authorization', 'content-type', 'accept', 'origin', 'x-requested-with', 'access-control-allow-origin', 'x-allowed-header', '*'],
 
     'exposed_headers' => [],
 

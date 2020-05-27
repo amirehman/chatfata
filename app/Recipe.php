@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
 
+    protected $fillable = [
+        'user_id', 'title', 'slug', 'body', 'difficulty', 'prep_time', 'video', 'image'
+    ];
+
     public function user () {
         return $this->belongsTo(User::class);
     }
@@ -33,6 +37,14 @@ class Recipe extends Model
 
     public function notes () {
         return $this->hasMany(Recipeingredientnote::class, 'recipe_id');
+    }
+
+    public function images () {
+        return $this->hasMany(Media::class, 'recipe_id');
+    }
+
+    public function collection($type) {
+        return $this->images()->where('collection', '=', $type);
     }
 
 }

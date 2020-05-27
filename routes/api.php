@@ -17,3 +17,23 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // Route::post('/recipes/images/{collection}/{recipeid}/{recipename}', 'RecipeController@storeImages');
+    Route::resource('/recipes', 'RecipeController');
+    Route::post('/steps', 'PreparationController@store');
+    Route::delete('/steps/{step}', 'PreparationController@delete');
+    Route::patch('/steps/{step}', 'PreparationController@update');
+
+    Route::post('/ingredients', 'IngredientController@store');
+    Route::delete('/ingredients/{ingredient}', 'IngredientController@delete');
+    Route::patch('/ingredients/{ingredient}', 'IngredientController@update');
+
+    Route::post('/recipes/images/{collection}/{recipeid}/{recipename}', 'MediaController@storeImages');
+    Route::delete('/media/{image}', 'MediaController@deleteImage');
+
+});

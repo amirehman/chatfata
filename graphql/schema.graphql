@@ -26,6 +26,9 @@ type Query {
     SearchRecipes(term: String): [Recipe]
 
     me: User @middleware(check:["auth:api"]) @auth
+
+    meals: [Meal!]! @all
+
 }
 
 type Mutation {
@@ -44,6 +47,7 @@ type Mutation {
     #     id: ID @rules(apply: ["required"])
     # ): User @delete(model: "App\\User")
 
+
     createPreparations(
         step: String! @rules(apply: ["required"])
         recipe_id: Int! @rules(apply: ["required"])
@@ -61,15 +65,6 @@ type Mutation {
     deletePreparations(id: ID! @rules(apply: ["required"])): Preparation @delete
 
     ######    Recipeingredient   ######
-
-    # createRecipeingredientsResolver: (
-    #     amount: String! @rules(apply: ["required"])
-    #     note: String
-    #     ingredient_id: Int! @rules(apply: ["required"])
-    #     recipe_id: Int! @rules(apply: ["required"])
-    #     author_id: Int! @rules(apply: ["required"])
-    #     order: Int
-    # ): Recipeingredient @create
 
     createRecipeingredients(
         amount: String! @rules(apply: ["required"])
@@ -144,7 +139,7 @@ type Ingredient {
     slug: String!
     excerpt: String
     body: String
-    image: String!
+    image: String
     category: Boolean
     recipes: [Recipe] @belongsToMany
 }
@@ -152,8 +147,8 @@ type Ingredient {
 type Meal {
     id: ID!
     title: String!
-    slug: String!
-    image: String!
+    slug: String
+    image: String
     recipes: [Recipe] @belongsToMany
 }
 
@@ -176,12 +171,29 @@ type Recipe {
     order: Int
     created_at: String
     image: String!
+    images: [Media] @hasMany
     meals: [Meal] @belongsToMany
     categories: [Ingredient] @belongsToMany
     author: User @belongsTo
     steps: [Preparation] @hasMany
     ingredients: [Recipeingredient] @hasMany
     notes: [Recipeingredientnote] @hasMany
+}
+
+type Media {
+    id: ID!
+    name: String
+    file: String!
+    mime_type: String
+    mime_type: String
+    recipe_id: Int
+    user: User @belongsTo
+    recipe: User @belongsTo
+    user_id: Int!
+    status: Int
+    order: Int
+    created_at: String
+    updated_at: String
 }
 
 type Recipeingredient {

@@ -48,5 +48,8 @@ class User extends \TCG\Voyager\Models\User
     public function social () {
         return $this->hasmany(UserSocialmedia::class, 'user_id');
     }
+    public function media () {
+        return $this->hasmany(UserSocialmedia::class, 'user_id');
+    }
 
 }

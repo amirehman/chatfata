@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Recipeingredient;
+use \App\Recipe;
 
 class IngredientController extends Controller
 {
@@ -22,6 +23,9 @@ class IngredientController extends Controller
             'note' => $request->note,
             'recipe_id' => $request->recipe_id
         ]);
+
+        $recipe = Recipe::findOrFail($request->recipe_id);
+        $recipe->categories()->syncWithoutDetaching($request->ingredient);
 
         return response()->json([
             "success"=> 201,
@@ -48,6 +52,8 @@ class IngredientController extends Controller
     public function delete($id)
     {
         $ingredient = Recipeingredient::find($id);
+        $recipe = Recipe::findOrFail($ingredient->recipe_id);
+        $recipe->categories()->detach($ingredient->ingredient->id);
         $ingredient->delete();
         return response("Ingredient deleted.", 201);
     }

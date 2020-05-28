@@ -18,6 +18,10 @@ class GetFeaturedCategoriesRandomly
      */
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        return \App\Ingredient::where('category', '=', 1)->get()->random(10);
+        // return \App\Ingredient::where('category', '=', 1)->get()->random(10);
+
+        return \App\Ingredient::whereHas('recipes', function ($query) {
+            $query->where('status', '=', 'PUBLISHED');
+        })->get();
     }
 }

@@ -39,7 +39,15 @@ class User extends \TCG\Voyager\Models\User
     ];
 
     public function recipes () {
+        return $this->hasMany(Recipe::class)->where('status', "PUBLISHED");
+    }
+
+    public function allrecipes () {
         return $this->hasMany(Recipe::class);
+    }
+
+    public function draftrecipes () {
+        return $this->hasMany(Recipe::class)->where('status', "DRAFT");
     }
 
     public function info () {

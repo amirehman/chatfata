@@ -143,9 +143,77 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Recipe $recipe)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'meals' => 'required',
+            'difficulty' => 'required|string',
+            'prep_time' => 'required|integer'
+        ]);
+
+        $oldImage = $recipe->image;
+        $newImage = $request->image;
+        if ($oldImage != $newImage) {
+
+            //deleting old images
+            // $image = public_path("storage/$oldImage");
+            // $extension_pos = strrpos($image, '.');
+            // $small = substr($image, 0, $extension_pos) . '-small' . substr($image, $extension_pos);
+            // $medium = substr($image, 0, $extension_pos) . '-medium' . substr($image, $extension_pos);
+            // unlink($small);
+            // unlink($medium);
+            // unlink($image);
+
+            //making new thumbnail resizing compressing
+            // ======== Generating images ==============
+
+            // create folder by monts and yeare
+            $monthYear = date('FY');
+            $folder_by_month = public_path() . '/storage/recipes/' . $monthYear;
+            !file_exists($folder_by_month) && mkdir($folder_by_month, 0777);
+
+            // giving random name to image to make it unique
+            $thumbName = Str::random() . time();
+            $thumbnail = $request->image;
+
+            $imagePathForDB = 'recipes/' . $monthYear . '/' . $thumbName . '.' . explode('/', explode(':', substr($thumbnail, 0, strpos($thumbnail, ';')))[1])[1];
+
+            $smallImage = $thumbName . '-small' . '.' . explode('/', explode(':', substr($thumbnail, 0, strpos($thumbnail, ';')))[1])[1];
+            $mediumImage = $thumbName . '-medium' . '.' . explode('/', explode(':', substr($thumbnail, 0, strpos($thumbnail, ';')))[1])[1];
+            $originalImage = $thumbName . '.' . explode('/', explode(':', substr($thumbnail, 0, strpos($thumbnail, ';')))[1])[1];
+
+
+            Image::make($thumbnail)->resize(96, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path() . '/storage/recipes/' . $monthYear . '/' . $smallImage);
+
+            Image::make($thumbnail)->resize(200, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save(public_path() . '/storage/recipes/' . $monthYear . '/' . $mediumImage);
+
+            Image::make($thumbnail)->save(public_path() . '/storage/recipes/' . $monthYear . '/' . $originalImage);
+
+
+            ImageOptimizer::optimize(public_path() . '/storage/recipes/' . $monthYear . '/' . $smallImage);
+            ImageOptimizer::optimize(public_path() . '/storage/recipes/' . $monthYear . '/' . $mediumImage);
+            ImageOptimizer::optimize(public_path() . '/storage/recipes/' . $monthYear . '/' . $originalImage);
+
+            $recipe->image = $imagePathForDB;
+        }
+
+        $recipe->title = $request->title;
+        $recipe->body = $request->detail;
+        $recipe->prep_time = $request->prep_time;
+        $recipe->video = $request->video;
+
+        $recipe->difficulty = $request->difficulty;
+
+        $recipe->meals()->sync($request->meals);
+
+        $recipe->save();
+
+        return response($recipe->slug, 201);
     }
 
     /**
@@ -210,7 +278,14 @@ class RecipeController extends Controller
             "message" => 201,
             "image" => json_encode($media),
         ]);
-
-
     }
+
+
+    public function changeStatus (Request $request, Recipe $recipe) {
+        $recipe->status = $request->status;
+        $recipe->save();
+        return response("Status changed", 201);
+    }
+
+
 }

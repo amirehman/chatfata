@@ -18,12 +18,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/contact', 'FormController@contact');
+
+
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    // Route::post('/recipes/images/{collection}/{recipeid}/{recipename}', 'RecipeController@storeImages');
+    //Forms
+
+    Route::patch('/recipe/{recipe}/changestatus', 'RecipeController@changeStatus');
     Route::resource('/recipes', 'RecipeController');
     Route::post('/steps', 'PreparationController@store');
     Route::delete('/steps/{step}', 'PreparationController@delete');

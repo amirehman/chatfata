@@ -206,6 +206,7 @@ class RecipeController extends Controller
         $recipe->body = $request->detail;
         $recipe->prep_time = $request->prep_time;
         $recipe->video = $request->video;
+        $recipe->note = $request->note;
 
         $recipe->difficulty = $request->difficulty;
 

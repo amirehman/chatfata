@@ -22,6 +22,6 @@ class GetFeaturedCategoriesRandomly
 
         return \App\Ingredient::whereHas('recipes', function ($query) {
             $query->where('status', '=', 'PUBLISHED');
-        })->where('cateogry', true)->get();
+        })->where('category', 1)->get();
     }
 }

@@ -13,7 +13,7 @@ class Recipeingredient extends Model
      * @var array
      */
      protected $fillable = [
-        'amount', 'note', 'ingredient_id', 'recipe_id', 'order', 'author_id'
+        'amount', 'note', 'type', 'ingredient_id', 'recipe_id', 'order', 'author_id'
     ];
 
     public function recipe () {

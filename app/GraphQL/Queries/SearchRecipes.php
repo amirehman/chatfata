@@ -18,11 +18,20 @@ class SearchRecipes
      */
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        if(!$args['term']){
-            return \App\Recipe::where('title', 'like', '%'.'this is just a dummy text if you dont get any thing'.'%')->get();
-        }else{
-            return \App\Recipe::where('title', 'like', '%'.$args['term'].'%')->get();
-        }
+        $search = $args['term'];
+        $term = explode(' ', $search);
 
+        if (!$args['term']) {
+            return \App\Recipe::where('title', 'like', '%' . 'this is just a dummy text if you dont get any thing' . '%')->get();
+        } else {
+            for ($x = 0; $x < count($term); $x++) {
+                return \App\Recipe::where([
+                    ['title', 'like', '%' . $term[$x] . '%'],
+                    ['status', '=', 'PUBLISHED'],
+                ])
+                    ->orWhere('body', 'like', '%' . $term[$x] . '%')
+                    ->limit(8)->get();
+            }
+        }
     }
 }

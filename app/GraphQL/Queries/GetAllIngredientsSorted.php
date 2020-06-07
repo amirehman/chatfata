@@ -24,7 +24,7 @@ class GetAllIngredientsSorted
         //                 $q->where('status','=','PUBLISHED');
         //            })->orderby('title', 'asc')->get();
 
-        return \App\Recipeingredient::with(['ingredient' => function ($query) {
+        return \App\Recipeingredient::where('type', null)->with(['ingredient' => function ($query) {
             $query->whereHas('recipes', function($w) {
                 $w->where('status','=','PUBLISHED');
             });

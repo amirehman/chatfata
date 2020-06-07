@@ -12,7 +12,7 @@ class Preparation extends Model
      * @var array
      */
      protected $fillable = [
-        'step', 'recipe_id', 'author_id', 'order'
+        'step', 'type', 'recipe_id', 'author_id', 'order'
     ];
 
     public function recipe () {

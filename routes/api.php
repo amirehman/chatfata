@@ -33,10 +33,14 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/steps', 'PreparationController@store');
     Route::delete('/steps/{step}', 'PreparationController@delete');
     Route::patch('/steps/{step}', 'PreparationController@update');
+    Route::patch('/order/steps/{recipeid}', 'PreparationController@updateOrder');
 
     Route::post('/ingredients', 'IngredientController@store');
+    Route::post('/ingredients/heading', 'IngredientController@storeHeading');
     Route::delete('/ingredients/{ingredient}', 'IngredientController@delete');
     Route::patch('/ingredients/{ingredient}', 'IngredientController@update');
+    Route::patch('/ingredients/{ingredient}/heading', 'IngredientController@updateHeading');
+    Route::patch('/order/ingredients/{recipeid}', 'IngredientController@updateOrder');
 
     Route::post('/recipes/images/{collection}/{recipeid}/{recipename}', 'MediaController@storeImages');
     Route::delete('/media/{image}', 'MediaController@deleteImage');

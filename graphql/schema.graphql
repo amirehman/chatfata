@@ -10,9 +10,21 @@ type Query {
     user(id: ID @eq): User @find
     userbyname(username: ID @eq): User @find
 
-    recipes(status: String @eq): [Recipe] @where(status: "like") @paginate(defaultCount: 12)
+    recipes(status: String @eq): [Recipe]
+        @where(status: "like")
+        @paginate(defaultCount: 12)
     recipe(slug: ID @eq): Recipe @find
     isRecipePublished(slug: ID @eq): Recipe @find
+
+    stepsByRecipe(
+        recipe_id: Int @eq
+        orderBy: [OrderByClause!] @orderBy
+    ): [Preparation] @where(recipe_id: "like") @all
+
+    recipeIngredientsByRecipe(
+        recipe_id: Int @eq
+        orderBy: [OrderByClause!] @orderBy
+    ): [Recipeingredient] @where(recipe_id: "like") @all
 
     categories(category: Boolean! @eq): [Ingredient] @paginate(defaultCount: 12)
     GetFeaturedCategoriesRandomly: [Ingredient]
@@ -20,21 +32,16 @@ type Query {
     GetAllPreparationsByRecipe(id: Int!): [Preparation]
     GetAllIngredientsByRecipe(id: Int!): [Recipeingredient]
 
+
     GetAllIngredientsSorted: [Recipeingredient]
     ingredients: [Ingredient] @all
     ingredient(slug: ID @eq): Ingredient @find
 
     SearchRecipes(term: String): [Recipe]
 
-    me: User @middleware(check:["auth:api"]) @auth
+    me: User @middleware(check: ["auth:api"]) @auth
 
     meals: [Meal!]! @all
-
-
-
-
-
-
 }
 
 type Mutation {
@@ -52,7 +59,6 @@ type Mutation {
     # deleteUser(
     #     id: ID @rules(apply: ["required"])
     # ): User @delete(model: "App\\User")
-
 
     createPreparations(
         step: String! @rules(apply: ["required"])
@@ -139,8 +145,6 @@ type Socialmedia {
     usersocialmedia: UserSocialmedia @belongsTo
 }
 
-
-
 type Ingredient {
     id: ID!
     title: String!
@@ -208,6 +212,10 @@ type Recipeingredient {
     id: ID!
     amount: String!
     note: String
+    type: String
+    order: Int
+    recipe_id: Int
+    recipe: Recipe @belongsTo
     ingredient: Ingredient @belongsTo
 }
 
@@ -218,6 +226,20 @@ type Recipeingredientnote {
 }
 
 type Preparation {
-    id: ID!
+    id: Int!
     step: String!
+    type: String!
+    order: Int
+    recipe_id: Int
+    recipe: Recipe @belongsTo
+}
+
+input OrderByClause {
+    field: String!
+    order: SortOrder!
+}
+
+enum SortOrder {
+    ASC
+    DESC
 }

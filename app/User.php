@@ -1,5 +1,5 @@
 <?php
-
+// TCG\Voyager\Http\Controllers\VoyagerUserController
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends \TCG\Voyager\Models\User
+class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use HasApiTokens, Notifiable;
 
@@ -17,7 +17,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'username', 'password',
     ];
 
     /**
@@ -38,26 +38,36 @@ class User extends \TCG\Voyager\Models\User
         'email_verified_at' => 'datetime',
     ];
 
-    public function recipes () {
+    public function recipes()
+    {
         return $this->hasMany(Recipe::class)->where('status', "PUBLISHED");
     }
 
-    public function allrecipes () {
+    public function allrecipes()
+    {
         return $this->hasMany(Recipe::class);
     }
 
-    public function draftrecipes () {
+    public function draftrecipes()
+    {
         return $this->hasMany(Recipe::class)->where('status', "DRAFT");
     }
 
-    public function info () {
+    public function info()
+    {
         return $this->hasOne(UserInfo::class, 'user_id');
     }
-    public function social () {
-        return $this->hasmany(UserSocialmedia::class, 'user_id');
-    }
-    public function media () {
-        return $this->hasmany(UserSocialmedia::class, 'user_id');
-    }
 
+    public function application()
+    {
+        return $this->hasOne(ChannelApplication::class, 'user_id');
+    }
+    public function social()
+    {
+        return $this->hasmany(UserSocialmedia::class, 'user_id');
+    }
+    public function media()
+    {
+        return $this->hasmany(UserSocialmedia::class, 'user_id');
+    }
 }

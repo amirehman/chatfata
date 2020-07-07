@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class GeneralController extends Controller
 {
     public function welcome () {
-        $data = \App\UserSocialmedia::find(4);
-        return view('welcome', compact('data'));
+        $data = \App\User::find(1);
+        // return view('welcome', compact('data'));
+        return view('emails.users.channel_approved');
     }
 }

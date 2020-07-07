@@ -61,10 +61,20 @@ input NewPasswordWithCodeInput {
 
 input RegisterInput {
     name: String! @rules(apply: ["required", "string"])
+    username: String! @rules(apply: ["required", "string"])
     email: String! @rules(apply: ["required", "email", "unique:users,email"])
     password: String! @rules(apply: ["required", "confirmed", "min:8"])
     password_confirmation: String!
 }
+
+# input UserRoles {
+#     connect: [ConnectUserRoles!]
+# }
+
+# input ConnectUserRoles {
+#     user_id: ID!
+#     role_id:
+# }
 
 input SocialLoginInput {
     provider: String! @rules(apply: ["required"])

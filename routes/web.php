@@ -20,6 +20,8 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+// Auth::routes();
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/email/verify/{id}/{hash}', 'Api\VerificationController@verify')->name('verification.verify');

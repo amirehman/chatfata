@@ -89,7 +89,11 @@
                     <a href="http://127.0.0.1:8000/admin">Admin</a>
                 </div>
                 <div class="links bg-gray-300 font-semibold text-xl p-10">
-                    {{$data->media}}
+                    <code>
+                        @auth
+                        {{$data->application}}
+                        @endauth
+                    </code>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use \App\Recipe;
 use \App\Media;
+use \App\CountryRecipe;
 use Image;
 use ImageOptimizer;
 
@@ -43,6 +44,7 @@ class RecipeController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'meals' => 'required',
+            'country' => 'required',
             'difficulty' => 'required|string',
             'prep_time' => 'required|integer',
             'image' => 'required',
@@ -105,11 +107,18 @@ class RecipeController extends Controller
             'body' => $request->detail,
             'difficulty' => $request->difficulty,
             'prep_time' => $request->prep_time,
+            'serves' => $request->serves,
             'video' => $request->video,
             'image' => $imagePathForDB,
         ]);
 
         $recipe->meals()->sync($request->meals);
+
+        CountryRecipe::create([
+            'recipe_id' => $recipe->id,
+            'country_id' => $request->country,
+            'state_id' => $request->state,
+        ]);
 
         return response($recipe->slug, 201);
     }
@@ -206,6 +215,7 @@ class RecipeController extends Controller
         $recipe->body = $request->detail;
         $recipe->prep_time = $request->prep_time;
         $recipe->video = $request->video;
+        $recipe->serves = $request->serves;
         $recipe->ingredient_note = $request->note;
 
         $recipe->difficulty = $request->difficulty;
@@ -213,6 +223,14 @@ class RecipeController extends Controller
         $recipe->meals()->sync($request->meals);
 
         $recipe->save();
+
+        $country = CountryRecipe::findorFail($recipe->cuisine->id);
+        if(!is_array($request->country)) {
+            $country->country_id = $request->country;
+            $country->state_id = $request->state;
+            $country->save();
+        }
+
 
         return response($recipe->slug, 201);
     }
@@ -282,11 +300,10 @@ class RecipeController extends Controller
     }
 
 
-    public function changeStatus (Request $request, Recipe $recipe) {
+    public function changeStatus(Request $request, Recipe $recipe)
+    {
         $recipe->status = $request->status;
         $recipe->save();
         return response("Status changed", 201);
     }
-
-
 }

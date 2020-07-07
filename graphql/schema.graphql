@@ -42,6 +42,12 @@ type Query {
     me: User @middleware(check: ["auth:api"]) @auth
 
     meals: [Meal!]! @all
+
+    countries: [Country!]! @all
+    country(id: ID @eq): Country @find
+    states(country_id: Int @eq): [State]
+        @where(country_id: "like")
+        @all
 }
 
 type Mutation {
@@ -108,14 +114,24 @@ type User {
     email: String!
     username: String!
     avatar: String
+    email_verified_at: String
     created_at: DateTime!
     updated_at: DateTime!
     info: UserInfo @hasOne
+    application: ChannelApplication @hasOne
     recipes: [Recipe] @belongsToMany
     allrecipes: [Recipe] @belongsToMany
     draftrecipes: [Recipe] @belongsToMany
     roles: [Role] @hasMany
     social: [UserSocialmedia] @belongsToMany
+}
+
+type ChannelApplication {
+    status: String!
+    channel_type: Int!
+    channel_url: String!
+    created_at: String
+    user: User @belongsTo
 }
 
 type UserInfo {
@@ -172,6 +188,7 @@ type Recipe {
     body: String
     difficulty: String!
     prep_time: String
+    serves: String
     image: String
     video: String
     ingredient_note: String
@@ -190,6 +207,8 @@ type Recipe {
     steps: [Preparation] @hasMany
     ingredients: [Recipeingredient] @hasMany
     notes: [Recipeingredientnote] @hasMany
+    country: [Country] @belongsTo
+    state: [State] @belongsTo
 }
 
 type Media {
@@ -232,6 +251,27 @@ type Preparation {
     order: Int
     recipe_id: Int
     recipe: Recipe @belongsTo
+}
+
+type Country {
+    id: Int!
+    name: String!
+    iso3: String
+    iso2: String
+    native: String
+    emoji: String
+    states: [State] @hasMany
+    recipes: [Recipe] @belongsTo
+}
+
+type State {
+    id: Int
+    name: String
+    iso2: String
+    country_code: String
+    country_id: Int
+    country: Country @belongsTo
+    recipes: [Recipe] @belongsTo
 }
 
 input OrderByClause {

@@ -8,11 +8,23 @@ class Recipe extends Model
 {
 
     protected $fillable = [
-        'user_id', 'title', 'slug', 'body', 'difficulty', 'prep_time', 'video', 'image'
+        'user_id', 'title', 'slug', 'body',  'serves', 'difficulty', 'prep_time', 'video', 'image'
     ];
 
     public function user () {
         return $this->belongsTo(User::class);
+    }
+
+    public function cuisine () {
+        return $this->hasOne(CountryRecipe::class);
+    }
+
+    public function country () {
+        return $this->belongsToMany(Country::class, 'country_recipes');
+    }
+
+    public function state () {
+        return $this->belongsToMany(State::class, 'country_recipes');
     }
 
     public function categories () {
